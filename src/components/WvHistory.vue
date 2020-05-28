@@ -27,7 +27,15 @@ export default {
 
   watch: {
     vault(newVal) {
-      this.history.unshift({ ...newVal });
+      const existence = this.history.find(vault => {
+        return vault.hash === newVal.hash;
+      });
+
+      console.log(existence);
+
+      if (!existence) {
+        this.history.unshift({ ...newVal });
+      }
     }
   }
 };
