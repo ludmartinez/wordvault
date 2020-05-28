@@ -1,6 +1,5 @@
 <template>
   <div>
-    <wv-option-selector :algorithms="algorithms" />
     <v-form>
       <v-text-field
         rounded
@@ -18,15 +17,10 @@
 </template>
 
 <script>
-import WvOptionSelector from "./WvOptionSelector.vue";
 import { md5 } from "../utils/encryption";
 
 export default {
   name: "WvEncryptForm",
-
-  components: {
-    WvOptionSelector
-  },
 
   data() {
     return {

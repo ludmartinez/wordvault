@@ -12,6 +12,7 @@
       <v-btn icon @click="toggleSearchBar">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
+
       <v-text-field
         ref="searchBar"
         @blur="toggleSearchBar"
@@ -20,8 +21,7 @@
         hide-details
         :class="{ 'd-none': !searchBar }"
         autofocus
-      >
-      </v-text-field>
+      />
 
       <v-btn icon @click="toggleAction">
         <v-icon>{{ selectedIconAction }}</v-icon>
@@ -74,10 +74,26 @@ export default {
         ? (this.selectedAction = "decrypt")
         : (this.selectedAction = "encrypt");
     },
+
     toggleSearchBar() {
       this.searchBar = !this.searchBar;
       // console.log(this.$refs.searchBar.$refs.input);
     }
+  },
+
+  watch: {
+    selectedAction(selection) {
+      this.$emit("selectedAction", selection);
+    },
+
+    selectedAlgorithm(selection) {
+      this.$emit("selectedAlgorithm", selection);
+    }
+  },
+
+  mounted() {
+    this.$emit("selectedAction", this.selectedAction);
+    this.$emit("selectedAlgorithm", this.selectedAlgorithm);
   }
 };
 </script>
