@@ -32,8 +32,8 @@
         </v-card>
       </v-col>
 
-      <v-col>
-        <wv-history />
+      <v-col cols="12" md="6">
+        <wv-history :vault="vault" />
       </v-col>
     </v-row>
   </v-container>
@@ -65,7 +65,8 @@ export default {
   data() {
     return {
       string: "",
-      convertedString: ""
+      convertedString: "",
+      vault: {}
     };
   },
 
@@ -88,6 +89,10 @@ export default {
       switch (this.algorithmName) {
         case "md5":
           this.convertedString = md5(this.string);
+          this.vault = {
+            string: this.string,
+            hash: this.convertedString
+          };
           break;
 
         default:
