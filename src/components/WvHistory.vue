@@ -1,6 +1,12 @@
 <template>
   <v-card class="mx-auto" outlined>
-    <v-list-item two-line v-for="(vault, i) in history" :key="i">
+    <div v-if="!history.length" class="text-center blue-grey--text">
+      <h4>
+        You don't have any history yet
+      </h4>
+      <v-icon color="blue-grey">mdi-text-box-search</v-icon>
+    </div>
+    <v-list-item v-else two-line v-for="(vault, i) in history" :key="i">
       <v-list-item-content>
         <v-list-item-title>{{ vault.string }}</v-list-item-title>
         <v-list-item-subtitle>{{ vault.hash }}</v-list-item-subtitle>
@@ -31,7 +37,7 @@ export default {
         return vault.hash === newVal.hash;
       });
 
-      console.log(existence);
+      // console.log(existence);
 
       if (!existence) {
         this.history.unshift({ ...newVal });

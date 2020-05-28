@@ -96,7 +96,7 @@ export default {
             if (existence) {
               this.convertedString = existence.hash;
 
-              console.log("Existence");
+              // console.log("Existence");
             } else {
               const convertedString = md5(this.string);
 
