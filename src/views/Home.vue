@@ -5,19 +5,23 @@
       @selectedAction="selectAction($event)"
       @selectedAlgorithm="selectAlgorithm($event)"
     />
-    <wv-encript-form />
+    <wv-encrypt-form
+      v-if="action === 'encrypt'"
+      :algorithms="algorithms"
+      :selectAlgorithm="this.algorithm"
+    />
   </v-container>
 </template>
 
 <script>
-import WvEncriptForm from "../components/WvEncryptForm.vue";
+import WvEncryptForm from "../components/WvEncryptForm.vue";
 import WvOptionSelector from "../components/WvOptionSelector.vue";
 
 export default {
   name: "Home",
 
   components: {
-    WvEncriptForm,
+    WvEncryptForm,
     WvOptionSelector
   },
 
