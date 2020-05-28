@@ -42,6 +42,7 @@
 <script>
 import WvHistory from "./WvHistory.vue";
 import { md5 } from "../utils/encryption";
+import { searchHashByString, addVault } from "../api/firebase";
 
 export default {
   name: "WvEncryptForm",
@@ -83,22 +84,49 @@ export default {
   },
 
   methods: {
-    convertString() {
+    async convertString() {
       if (this.convertedString || !this.string) return;
       // console.log("paso");
       switch (this.algorithmName) {
-        case "md5":
-          this.convertedString = md5(this.string);
-          this.vault = {
-            string: this.string,
-            hash: this.convertedString
-          };
-          break;
+        case "md5": {
+          try {
+            const existence = await searchHashByString("md5", this.string);
 
-        default:
+            // console.log(querySnapshot.docs[0].data());
+            if (existence) {
+              this.convertedString = existence.hash;
+
+              console.log("Existence");
+            } else {
+              const convertedString = md5(this.string);
+
+              const vault = await addVault("md5", {
+                string: this.string,
+                hash: convertedString
+              });
+
+              this.convertedString = convertedString;
+
+              console.log(vault);
+            }
+
+            this.vault = {
+              string: this.string,
+
+              hash: this.convertedString
+            };
+          } catch (error) {
+            console.log(error);
+          }
+
+          break;
+        }
+
+        default: {
           this.convertedString =
             "We not count with that algorithm at moment. But wait for it 😊";
           break;
+        }
       }
     }
   }
