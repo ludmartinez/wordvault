@@ -5,24 +5,35 @@
       @selectedAction="selectAction($event)"
       @selectedAlgorithm="selectAlgorithm($event)"
     />
-    <wv-encrypt-form
-      v-if="action === 'encrypt'"
-      :algorithms="algorithms"
-      :selectAlgorithm="this.algorithm"
-    />
+    <keep-alive>
+      <wv-encrypt-form
+        v-if="action === 'encrypt'"
+        :algorithms="algorithms"
+        :selectAlgorithm="this.algorithm"
+      />
+    </keep-alive>
+    <keep-alive>
+      <wv-decrypt-form
+        v-if="action === 'decrypt'"
+        :algorithms="algorithms"
+        :selectAlgorithm="this.algorithm"
+      />
+    </keep-alive>
   </v-container>
 </template>
 
 <script>
 import WvEncryptForm from "../components/WvEncryptForm.vue";
+import WvDecryptForm from "../components/WvDecryptForm.vue";
 import WvOptionSelector from "../components/WvOptionSelector.vue";
 
 export default {
   name: "Home",
 
   components: {
+    WvOptionSelector,
     WvEncryptForm,
-    WvOptionSelector
+    WvDecryptForm
   },
 
   data() {
