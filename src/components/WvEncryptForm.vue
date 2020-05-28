@@ -19,6 +19,7 @@
 
 <script>
 import WvOptionSelector from "./WvOptionSelector.vue";
+import { md5 } from "../utils/encryption";
 
 export default {
   name: "WvEncryptForm",
@@ -36,7 +37,7 @@ export default {
 
   computed: {
     convertedString() {
-      return null;
+      return md5(this.string);
     }
   }
 };
