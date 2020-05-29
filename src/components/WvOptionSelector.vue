@@ -1,27 +1,15 @@
 <template>
   <div>
     <v-toolbar flat>
-      <v-toolbar-title>{{
-        `${selectedAction.toUpperCase()} - ${algorithms[
-          selectedAlgorithm
-        ].toUpperCase()}`
-      }}</v-toolbar-title>
+      <v-toolbar-title>
+        {{
+          `${selectedAction.toUpperCase()} - ${algorithms[
+            selectedAlgorithm
+          ].toUpperCase()} (${totalVaults} vaults)`
+        }}
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon @click="toggleSearchBar">
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-text-field
-        ref="searchBar"
-        @blur="toggleSearchBar"
-        dense
-        single-line
-        hide-details
-        :class="{ 'd-none': !searchBar }"
-        autofocus
-      />
 
       <v-btn icon @click="toggleAction">
         <v-icon>{{ selectedIconAction }}</v-icon>
@@ -39,6 +27,8 @@
 </template>
 
 <script>
+import { documentCount } from "../api/firebase";
+
 export default {
   name: "WvOptionSelector",
 
@@ -54,7 +44,8 @@ export default {
       selectedAlgorithm: 0,
       searchBar: false,
       selectedAction: "encrypt",
-      iconActions: ["mdi-lock", "mdi-lock-open-variant"]
+      iconActions: ["mdi-lock", "mdi-lock-open-variant"],
+      totalVaults: 0
     };
   },
 
@@ -89,6 +80,12 @@ export default {
     selectedAlgorithm(selection) {
       this.$emit("selectedAlgorithm", selection);
     }
+  },
+
+  created() {
+    documentCount("md5", count => {
+      this.totalVaults = count;
+    });
   },
 
   mounted() {

@@ -61,5 +61,13 @@ const addVault = async function(collection, document) {
   }
 };
 
+const documentCount = function(collection, callback) {
+  db.collection(collection).onSnapshot(querySnapShot => {
+    const count = querySnapShot.size;
+    // console.log(count);
+    callback(count);
+  });
+};
+
 export default firebase;
-export { db, searchHashByString, searchStringByHash, addVault };
+export { db, searchHashByString, searchStringByHash, addVault, documentCount };
