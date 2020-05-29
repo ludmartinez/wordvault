@@ -2,7 +2,7 @@
   <v-card class="mx-auto" outlined>
     <v-container>
       <v-row justify="end">
-        <v-col cols="5">
+        <v-col cols="12" sm="5">
           <v-text-field
             dense
             rounded
