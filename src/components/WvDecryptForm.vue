@@ -80,6 +80,10 @@ export default {
   watch: {
     hash() {
       this.string = "";
+    },
+
+    selectAlgorithm() {
+      this.string = "";
     }
   },
 

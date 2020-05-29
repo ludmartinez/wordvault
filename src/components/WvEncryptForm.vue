@@ -80,6 +80,10 @@ export default {
   watch: {
     string() {
       this.convertedString = "";
+    },
+
+    selectAlgorithm() {
+      this.convertedString = "";
     }
   },
 
